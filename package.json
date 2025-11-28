@@ -1,0 +1,29 @@
+{
+    "name": "rr-data-scripts",
+    "version": "2.0.0",
+    "description": "High perf git mining",
+    "main": "index.js",
+    "scripts": {
+        "backfill": "node scripts/backfill_archive.js",
+        "generate": "node scripts/generate_stats.js"
+    },
+    "dependencies": {
+        "axios": "^1.13.2",
+        "dotenv": "^16.6.1",
+        "fs-extra": "^11.3.2",
+        "p-limit": "^4.0.0",
+        "simple-git": "^3.30.0"
+    },
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Bitte-ein-Git/rr_data.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Bitte-ein-Git/rr_data/issues"
+    },
+    "homepage": "https://github.com/Bitte-ein-Git/rr_data#readme"
+}
