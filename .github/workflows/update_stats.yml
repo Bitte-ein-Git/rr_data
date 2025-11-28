@@ -1,0 +1,40 @@
+name: Update Stats
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Stats
+        run: npm run generate
+        env:
+          CF_WORKER_URL: ${{ secrets.CF_WORKER_URL }}
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "RR-Bot"
+          git config --global user.email "bot@retrorewind.net"
+          git add players/
+          # Ensure archive is removed from git if script deleted it
+          git add -u archive/ || true
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: Update player stats [skip ci]"
+          git push
